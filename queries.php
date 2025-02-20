@@ -1,5 +1,9 @@
 <?php
-require_once 'databaseConnect.php';
+require_once '../Models/Database.php';
+
+use Models\Database;
+
+$pdo = Database::getInstance();
 
 
 try {
@@ -15,7 +19,7 @@ try {
     LEFT JOIN users ON recipes.user_id = users.user_id
     WHERE recipes.is_enabled = true
 ';
-    $statementEnabledRecipes = $mysqlClient->query($getEnabledRecipes);
+    $statementEnabledRecipes = $pdo->query($getEnabledRecipes);
     $enabledRecipes = $statementEnabledRecipes->fetchAll(PDO::FETCH_ASSOC);
 
     //Deuxième requête
@@ -24,7 +28,7 @@ try {
 recipes.recipe,recipes.recipe_id
 FROM recipes
 WHERE recipes.author =:email AND recipes.is_enabled = true';
-    $statementRecipesByUsers = $mysqlClient->prepare($getRecipesByUsers);
+    $statementRecipesByUsers = $pdo->prepare($getRecipesByUsers);
     $statementRecipesByUsers->execute(['email' => $userEmail]);
     // Récupérer les recettes
     $userRecipes = $statementRecipesByUsers->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +45,7 @@ WHERE recipes.author =:email AND recipes.is_enabled = true';
             FROM recipes
             WHERE recipes.recipe_id = :recipe_id
         ';
-        $statementGetRecipesById = $mysqlClient->prepare($getRecipesById);
+        $statementGetRecipesById = $pdo->prepare($getRecipesById);
         $statementGetRecipesById->execute(['recipe_id' => $recipeId]);
         $recipeById = $statementGetRecipesById->fetch(PDO::FETCH_ASSOC);
     } else {
