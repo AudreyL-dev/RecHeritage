@@ -75,4 +75,16 @@ class User
             return null;
         }
     }
+    public function emailExists($email)
+    {
+        try {
+            $sql = "SELECT email FROM users WHERE email = :email";
+            $query = $this->pdo->prepare($sql);
+            $query->execute(['email' => $email]);
+            return $query->fetch(PDO::FETCH_ASSOC) !== false;
+        } catch (PDOException $e) {
+            error_log("Erreur emailExists: " . $e->getMessage());
+            return false;
+        }
+    }
 }

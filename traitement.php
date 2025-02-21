@@ -2,10 +2,11 @@
 // Inclure les fichiers nécessaires
 require_once 'init.php'; // Contient vos sessions et connexions à la base
 require_once 'functions.php'; // Vos fonctions utilitaires
-require_once '../Models/User.php';
+require_once __DIR__ . '/Models/User.php';
 use Models\User;
-require_once '../Controllers/UserController.php';
+require_once __DIR__ . '/Controllers/UserController.php';
 use Controllers\UserController;
+$userController = new UserController(); // ✅ Instanciation du contrôleur
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formType = $_POST['form_type'] ?? ''; // Récupère form_type ou une chaîne vide si absent
@@ -20,11 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             handleFormSubmission($_POST, $_FILES);
             break;
         case 'sign_in_sign_up':
-            // Récupération de l'email du formulaire
             $email = filter_input(INPUT_POST, 'signIn_signUp_email', FILTER_SANITIZE_EMAIL);
-            if (isset($_POST['signIn_signUp_email'])) {
-                // Appeler la fonction de redirection en passant l'email et la connexion MySQL
-                signIn_SignUp_Redirection($email, $mysqlClient);
+            if ($email) {
+                $userController->checkEmailAndRedirect($email);
             }
             break;
 
