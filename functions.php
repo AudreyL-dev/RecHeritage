@@ -250,7 +250,7 @@ function processSignUp($mysqlClient, $postData)
             'pseudo' => $postData['pseudo'],
             'email' => $postData['email'],
             'password' => password_hash($postData['password'], PASSWORD_DEFAULT),
-            'birthDate' => $postData['date_naissance'],
+            'birthDate' => $postData['birthDate'],
         ]);
         return 'Inscription réussie.';
     } catch (PDOException $e) {

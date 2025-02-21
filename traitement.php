@@ -2,6 +2,10 @@
 // Inclure les fichiers nécessaires
 require_once 'init.php'; // Contient vos sessions et connexions à la base
 require_once 'functions.php'; // Vos fonctions utilitaires
+require_once '../Models/User.php';
+use Models\User;
+require_once '../Controllers/UserController.php';
+use Controllers\UserController;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formType = $_POST['form_type'] ?? ''; // Récupère form_type ou une chaîne vide si absent
@@ -29,18 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'sign_up':
-            if (empty($postData['email']) || empty($postData['pseudo']) || empty($postData['password']) || empty($postData['confirm_password']) || empty($postData['date_naissance'])) {
-                echo 'Tous les champs sont obligatoires.';
-                break;
-            }
-
-            // Vérifier la correspondance des mots de passe
-            if ($postData['password'] !== $postData['confirm_password']) {
-                echo 'Les mots de passe ne correspondent pas.';
-                break;
-            }
-            processSignUp($mysqlClient, $_POST);
-            break;
+            $_SESSION['message'] = $userController->signUp($_POST);
+            header('Location: signUp.php');
+            exit();
 
 
 

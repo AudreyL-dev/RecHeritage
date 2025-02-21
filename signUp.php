@@ -40,10 +40,10 @@ require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
 
             <!-- Date de naissance -->
             <div class="relative">
-                <input type="date" name="date_naissance" id="date_naissance"
+                <input type="date" name="birthDate" id="birthDate"
                     class="peer w-full border border-[#acad94] rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#6e7271]"
                     placeholder=" " required>
-                <label for="date_naissance"
+                <label for="birthDate"
                     class="absolute left-3 top-0 text-[#6e7271] text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#acad94] peer-focus:top-0 peer-focus:text-sm peer-focus:text-[#6e7271]">
                     Date de naissance
                 </label>
