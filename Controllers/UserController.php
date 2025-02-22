@@ -29,12 +29,15 @@ class UserController
         );
 
         if ($message === "Inscription réussie.") {
-            $this->redirectWithMessage("signIn.php", "Inscription réussie. Vous pouvez maintenant vous connecter !");
+            $this->redirectWithMessage("signIn.php", "Inscription réussie. Vous pouvez maintenant vous connecter !", "success");
+        } else {
+            return $message;
         }
     }
-    private function redirectWithMessage($url, $message)
+    private function redirectWithMessage($url, $message, $type = 'success')
     {
         $_SESSION['message'] = $message;
+        $_SESSION['message_type'] = $type; // Ajoute le type du message (success ou danger)
         header("Location: $url");
         exit();
     }
@@ -48,5 +51,26 @@ class UserController
             header('Location: signUp.php');
         }
         exit();
+    }
+    public function signIn($postData)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_SESSION['userEmail'] ?? '';
+            $password = $postData['signIn_password'] ?? '';
+
+            if (empty($email) || empty($password)) {
+                $this->redirectWithMessage("signIn.php", "Veuillez remplir tous les champs.");
+            }
+
+            $user = $this->userModel->authenticateUser($email, $password);
+
+            if ($user) {
+                $_SESSION['loggedIn'] = true;
+                $_SESSION['pseudo'] = $user['pseudo']; // Stocker le pseudo dans la session
+                $this->redirectWithMessage("recettes.php", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
+            } else {
+                $this->redirectWithMessage("signIn.php", "Identifiants incorrects.", "danger");
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@ class User
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $query->bindParam(':pseudo', $pseudo);
             $query->bindParam(':email', $email);
-            $query->bindParam(':password', $password);
+            $query->bindParam(':password', $hashedPassword);
             $query->bindParam(':birthDate', $birthDate);
             $query->execute();
             return "Inscription réussie.";

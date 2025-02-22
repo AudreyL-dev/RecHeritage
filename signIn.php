@@ -7,8 +7,9 @@ require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
     <?php require_once(__DIR__ . '/navbar.php');
 
     if (isset($_SESSION['message'])) {
-        echo '<div class="alert alert-success">' . $_SESSION['message'] . '</div>';
-        unset($_SESSION['message']); // Supprime le message après affichage
+        $messageType = $_SESSION['message_type'] ?? 'info'; // Par défaut, affiche en bleu (info)
+        echo '<div class="alert alert-' . $messageType . '">' . $_SESSION['message'] . '</div>';
+        unset($_SESSION['message'], $_SESSION['message_type']); // Supprime après affichage
     }
     ?> <!-- Conteneur principal -->
     <div class="flex flex-col items-center justify-center flex-grow px-4">

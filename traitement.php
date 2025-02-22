@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'sign_in':
-            processLogin($mysqlClient);
+            $userController->signIn($_POST);
             break;
 
         case 'sign_up':
