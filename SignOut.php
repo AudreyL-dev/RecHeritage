@@ -1,7 +1,6 @@
 <?php
-session_start();
-session_unset(); // Supprime toutes les variables de session
-session_destroy(); // Détruit la session
+require_once 'Controllers/UserController.php';
+use Controllers\UserController;
 
-header('Location: index.php'); // Redirection vers l'accueil après déconnexion
-exit();
+$userController = new UserController();
+$userController->signOut();

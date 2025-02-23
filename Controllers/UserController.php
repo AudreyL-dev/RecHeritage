@@ -1,6 +1,6 @@
 <?php
 namespace Controllers;
-
+require_once __DIR__ . '/../Models/User.php';
 use Models\User;
 class UserController
 {
@@ -64,7 +64,7 @@ class UserController
 
             $user = $this->userModel->authenticateUser($email, $password);
 
-            if ($user) {
+            if ($user !== null) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['pseudo'] = $user['pseudo']; // Stocker le pseudo dans la session
                 $this->redirectWithMessage("recettes.php", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
@@ -72,5 +72,13 @@ class UserController
                 $this->redirectWithMessage("signIn.php", "Identifiants incorrects.", "danger");
             }
         }
+    }
+    public function signOut()
+    {
+        session_start();
+        session_unset(); // Supprime toutes les variables de session
+        session_destroy(); // Détruit la session
+
+        $this->redirectWithMessage("public/index.php", "Vous avez été déconnecté.", "success");
     }
 }
