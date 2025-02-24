@@ -1,10 +1,10 @@
 <?php
 $pageTitle = "Site de recettes - Inscription"; // Définir le titre dynamique
-require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
+require_once(__DIR__ . '/../head.php'); // Inclure le fichier d'en-tête
 ?>
 <body class="bg-[#f8f8f8] text-[#384d48] font-sans min-h-screen flex flex-col">
     <!-- Navbar -->
-    <?php require_once(__DIR__ . '/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../navbar.php'); ?>
 
     <!-- Conteneur principal -->
     <div class="flex flex-col items-center justify-center flex-grow px-4">
@@ -12,7 +12,8 @@ require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
         <h1 class="text-3xl font-bold mb-6">Création de compte</h1>
 
         <!-- Formulaire -->
-        <form action="" method="POST" class="bg-white shadow-md rounded-lg p-6 max-w-md w-full space-y-6">
+        <form action="<?= str_replace('/public', '', BASE_URL) ?>/router.php" method="POST"
+            class="bg-white shadow-md rounded-lg p-6 max-w-md w-full space-y-6">
             <input type="hidden" name="form_type" value="sign_up">
             <!-- Email (pré-rempli si existant) -->
             <div class="relative">

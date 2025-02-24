@@ -29,9 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'sign_up':
-            $_SESSION['message'] = $userController->signUp($_POST);
-            header('Location: signUp.php');
-            exit();
+            $userController->signUp($_POST);
+            break;
 
 
 

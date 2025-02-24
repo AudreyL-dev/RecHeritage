@@ -14,11 +14,11 @@ class UserController
     public function signUp($postData)
     {
         if (empty($postData['email']) || empty($postData['pseudo']) || empty($postData['password']) || empty($postData['confirm_password']) || empty($postData['birthDate'])) {
-            $this->redirectWithMessage("signUp.php", "Tous les champs sont obligatoires.");
+            $this->redirectWithMessage(BASE_URL . "/views/signUp.php", "Tous les champs sont obligatoires.", "danger");
         }
 
         if ($postData['password'] !== $postData['confirm_password']) {
-            $this->redirectWithMessage("signUp.php", "Les mots de passe ne correspondent pas.");
+            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signUp.php", "Les mots de passe ne correspondent pas.", "danger");
         }
 
         $message = $this->userModel->createUser(
@@ -29,9 +29,9 @@ class UserController
         );
 
         if ($message === "Inscription réussie.") {
-            $this->redirectWithMessage("signIn.php", "Inscription réussie. Vous pouvez maintenant vous connecter !", "success");
+            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signIn.php", "Inscription réussie. Vous pouvez maintenant vous connecter !", "success");
         } else {
-            return $message;
+            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signUp.php", $message, "danger");
         }
     }
     private function redirectWithMessage($url, $message, $type = 'success')
@@ -45,10 +45,10 @@ class UserController
     {
         if ($this->userModel->emailExists($email)) {
             $_SESSION['userEmail'] = $email;
-            header('Location: signIn.php');
+            header('Location: /views/signIn.php');
         } else {
             $_SESSION['userEmail'] = $email;
-            header('Location: signUp.php');
+            header('Location: /views/signUp.php');
         }
         exit();
     }
@@ -79,6 +79,8 @@ class UserController
         session_unset(); // Supprime toutes les variables de session
         session_destroy(); // Détruit la session
 
-        $this->redirectWithMessage("public/index.php", "Vous avez été déconnecté.", "success");
+        // Passer le message dans l'URL pour éviter qu'il soit supprimé par session_destroy()
+        header("Location: " . BASE_URL . "/index.php?message=" . urlencode("Vous avez été déconnecté."));
+        exit();
     }
 }

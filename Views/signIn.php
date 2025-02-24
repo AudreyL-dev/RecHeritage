@@ -1,23 +1,25 @@
 <?php
 $pageTitle = "Connexion - Site de recettes"; // Définir le titre dynamique
-require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
+require_once(__DIR__ . '/../head.php'); // Inclure le fichier d'en-tête
 ?>
 <body class="bg-[#f8f8f8] text-[#384d48] font-sans min-h-screen flex flex-col">
     <!-- Navbar -->
-    <?php require_once(__DIR__ . '/navbar.php');
-
-    if (isset($_SESSION['message'])) {
+    <?php require_once(__DIR__ . '/../navbar.php'); ?>
+    <!-- Affichage des messages (erreur ou succès) -->
+    <?php if (isset($_SESSION['message'])) {
         $messageType = $_SESSION['message_type'] ?? 'info'; // Par défaut, affiche en bleu (info)
-        echo '<div class="alert alert-' . $messageType . '">' . $_SESSION['message'] . '</div>';
+        echo '<div class="alert alert-' . $messageType . '">' . htmlspecialchars($_SESSION['message']) . '</div>';
         unset($_SESSION['message'], $_SESSION['message_type']); // Supprime après affichage
     }
-    ?> <!-- Conteneur principal -->
+    ?>
+    <!-- Conteneur principal -->
     <div class="flex flex-col items-center justify-center flex-grow px-4">
         <!-- Titre -->
         <h1 class="text-3xl font-bold mb-6">Connexion</h1>
 
         <!-- Formulaire de connexion -->
-        <form action="" method="post" class="bg-white shadow-md rounded-lg p-6 max-w-sm w-full space-y-6">
+        <form action="<?= str_replace('/public', '', BASE_URL) ?>/router.php" method="post"
+            class="bg-white shadow-md rounded-lg p-6 max-w-sm w-full space-y-6">
             <input type="hidden" name="form_type" value="sign_in">
             <!-- Affichage de l'email récupéré de la session -->
             <div>
@@ -62,7 +64,7 @@ require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
                 </button>
                 <!-- Message d'erreur -->
                 <span class="text-sm text-red-500">
-                    <?php echo isset($errorMessage) ? htmlspecialchars($errorMessage) : ''; ?>
+                    <?php echo isset($_SESSION['errorMessage']) ? htmlspecialchars($_SESSION['errorMessage']) : ''; ?>
                 </span>
             </div>
 

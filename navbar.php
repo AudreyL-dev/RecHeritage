@@ -39,10 +39,10 @@
                                 recettes</a></li>
                     </ul>
                 </div>
-                <a href="signOut.php" class="text-gray-700 hover:text-gray-900 transition">Déconnexion</a>
+                <a href="<?= BASE_URL ?>/signOut.php" class="text-gray-700 hover:text-gray-900 transition">Déconnexion</a>
             <?php else: ?>
                 <!-- Lien de connexion si déconnecté -->
-                <a href="../signIn_signUp.php" class="text-gray-700 hover:text-gray-900 transition">Me connecter</a>
+                <a href="../Views/signIn_signUp.php" class="text-gray-700 hover:text-gray-900 transition">Me connecter</a>
             <?php endif; ?>
         </div>
     </div>
