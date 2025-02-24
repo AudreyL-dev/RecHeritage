@@ -1,12 +1,9 @@
 <?php
-// Inclure les fichiers nécessaires
-require_once 'init.php'; // Contient vos sessions et connexions à la base
-require_once 'functions.php'; // Vos fonctions utilitaires
-require_once __DIR__ . '/Models/User.php';
-use Models\User;
-require_once __DIR__ . '/Controllers/UserController.php';
+
+require_once __DIR__ . '/config/autoload.php';
+
 use Controllers\UserController;
-$userController = new UserController(); // ✅ Instanciation du contrôleur
+$userController = new UserController(); // Instanciation du contrôleur
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formType = $_POST['form_type'] ?? ''; // Récupère form_type ou une chaîne vide si absent
