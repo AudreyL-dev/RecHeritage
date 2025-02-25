@@ -2,8 +2,8 @@
 <nav class="bg-gray-100 shadow-md">
     <div class="container mx-auto px-4 flex justify-between items-center">
         <!-- Logo intégré -->
-        <a href="index.php" class="flex items-center space-x-2">
-            <img src="img/DALL_E_logo.png" alt="Logo Site de recettes" class="h-10 w-10">
+        <a href="<?= BASE_URL ?>/index.php" class="flex items-center space-x-2">
+            <img src="<?= BASE_URL ?>/assets/img/DALL_E_logo.png" alt="Logo Site de recettes" class="h-10 w-10">
             <span class="text-lg font-bold text-gray-800">Site de recettes</span>
         </a>
 
@@ -17,9 +17,10 @@
 
         <!-- Liens de navigation -->
         <div id="menu" class="hidden lg:flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
-            <a href="index.php" class="text-gray-700 hover:text-gray-900 transition">Accueil</a>
-            <a href="contact.php" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
-            <a href="recettes.php" class="text-gray-700 hover:text-gray-900 transition">Recettes</a>
+            <a href="<?= BASE_URL ?>/index.php" class="text-gray-700 hover:text-gray-900 transition">Accueil</a>
+            <a href="<?= BASE_URL ?>/views/contact.php" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
+            <a href="<?= BASE_URL ?>/views/recettes.php"
+                class="text-gray-700 hover:text-gray-900 transition">Recettes</a>
 
             <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true): ?>
                 <!-- Menu utilisateur connecté -->
@@ -33,16 +34,19 @@
                     </button>
                     <ul id="user-dropdown"
                         class="absolute hidden bg-white shadow-md rounded-md mt-2 w-48 transition-all duration-300 ease-in-out opacity-0">
-                        <li><a href="recipes_create.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajouter une
+                        <li><a href="<?= BASE_URL ?>/views/recipes_create.php"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajouter une
                                 recette</a></li>
-                        <li><a href="userRecipes.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mes
+                        <li><a href="<?= BASE_URL ?>/views/userRecipes.php"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mes
                                 recettes</a></li>
                     </ul>
                 </div>
                 <a href="<?= BASE_URL ?>/signOut.php" class="text-gray-700 hover:text-gray-900 transition">Déconnexion</a>
             <?php else: ?>
                 <!-- Lien de connexion si déconnecté -->
-                <a href="../Views/signIn_signUp.php" class="text-gray-700 hover:text-gray-900 transition">Me connecter</a>
+                <a href="<?= BASE_URL ?>/../views/signIn_signUp.php" class="text-gray-700 hover:text-gray-900 transition">Me
+                    connecter</a>
             <?php endif; ?>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <?php
 $pageTitle = "Connexion - Site de recettes"; // Définir le titre dynamique
-require_once(__DIR__ . '/../head.php'); // Inclure le fichier d'en-tête
+require_once(__DIR__ . '/../Views/includes/head.php'); // Inclure le fichier d'en-tête
 ?>
 <body class="bg-[#f8f8f8] text-[#384d48] font-sans min-h-screen flex flex-col">
     <!-- Navbar -->
-    <?php require_once(__DIR__ . '/../navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../Views/includes/navbar.php'); ?>
     <!-- Affichage des messages (erreur ou succès) -->
     <?php if (isset($_SESSION['message'])) {
         $messageType = $_SESSION['message_type'] ?? 'info'; // Par défaut, affiche en bleu (info)

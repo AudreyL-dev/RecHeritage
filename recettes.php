@@ -1,8 +1,8 @@
 <?php
 
 $pageTitle = "Site de recettes - Recettes"; // Définir le titre dynamique
-require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
-require_once(__DIR__ . '/navbar.php');
+require_once(__DIR__ . '/Views/includes/head.php'); // Inclure le fichier d'en-tête
+require_once(__DIR__ . '/Views/includes/navbar.php');
 if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
     header('Location: signIn_signUp.php');
@@ -42,6 +42,6 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     </div>
     </div>
     <!-- inclusion du bas de page du site -->
-    <?php require_once(__DIR__ . '/footer.php'); ?>
+    <?php require_once(__DIR__ . '/Views/includes/footer.php'); ?>
 </body>
 </html>

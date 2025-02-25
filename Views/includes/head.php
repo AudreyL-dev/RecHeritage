@@ -1,6 +1,6 @@
 <!-- Appel des inclusions PHP-->
 
-<?php require_once(__DIR__ . '/config/autoload.php'); ?>
+<?php require_once(__DIR__ . '/../../config/autoload.php'); ?>
 
 <!-- head.php -->
 <!DOCTYPE html>
@@ -15,6 +15,4 @@
     </script>
     <script async type=" text/javascript" src="<?= BASE_URL ?>/assets/js/script.js">
     </script>
-
-
 </head>
