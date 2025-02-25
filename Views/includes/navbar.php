@@ -17,9 +17,10 @@
 
         <!-- Liens de navigation -->
         <div id="menu" class="hidden lg:flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
-            <a href="<?= BASE_URL ?>/index.php" class="text-gray-700 hover:text-gray-900 transition">Accueil</a>
+            <a href="<?= BASE_URL ?>/index.php?page=home"
+                class="text-gray-700 hover:text-gray-900 transition">Accueil</a>
             <a href="<?= BASE_URL ?>/views/contact.php" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
-            <a href="<?= BASE_URL ?>/views/recettes.php"
+            <a href="<?= BASE_URL ?>/index.php?page=recettes"
                 class="text-gray-700 hover:text-gray-900 transition">Recettes</a>
 
             <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true): ?>

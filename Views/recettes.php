@@ -1,8 +1,18 @@
 <?php
 
 $pageTitle = "Site de recettes - Recettes"; // Définir le titre dynamique
-require_once(__DIR__ . '/Views/includes/head.php'); // Inclure le fichier d'en-tête
-require_once(__DIR__ . '/Views/includes/navbar.php');
+require_once __DIR__ . '/../config/autoload.php';
+require_once __DIR__ . '/../Controllers/RecetteController.php';
+
+use Controllers\RecetteController;
+
+$recetteController = new RecetteController();
+$recettes = $recetteController->getRecettes(); // Récupérer les recettes depuis le contrôleur
+
+
+require_once(__DIR__ . '/includes/head.php'); // Inclure le fichier d'en-tête
+require_once(__DIR__ . '/includes/navbar.php');
+
 if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
     header('Location: signIn_signUp.php');
@@ -16,7 +26,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     <div class="p-4">
         <div class="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!--Boucle sur les recettes-->
-            <?php foreach ($enabledRecipes as $recipe): ?>
+            <?php foreach ($recettes as $recipe): ?>
                 <div
                     class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 p-4">
 
@@ -42,6 +52,6 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     </div>
     </div>
     <!-- inclusion du bas de page du site -->
-    <?php require_once(__DIR__ . '/Views/includes/footer.php'); ?>
+    <?php require_once(__DIR__ . '/includes/footer.php'); ?>
 </body>
 </html>

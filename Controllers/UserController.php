@@ -34,13 +34,6 @@ class UserController
             $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signUp.php", $message, "danger");
         }
     }
-    private function redirectWithMessage($url, $message, $type = 'success')
-    {
-        $_SESSION['message'] = $message;
-        $_SESSION['message_type'] = $type; // Ajoute le type du message (success ou danger)
-        header("Location: $url");
-        exit();
-    }
     public function checkEmailAndRedirect($email)
     {
         if ($this->userModel->emailExists($email)) {
@@ -67,7 +60,7 @@ class UserController
             if ($user !== null) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['pseudo'] = $user['pseudo']; // Stocker le pseudo dans la session
-                $this->redirectWithMessage("recettes.php", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
+                $this->redirectWithMessage(BASE_URL . "/index.php?page=recettes", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
             } else {
                 $this->redirectWithMessage("signIn.php", "Identifiants incorrects.", "danger");
             }
@@ -81,6 +74,13 @@ class UserController
 
         // Passer le message dans l'URL pour éviter qu'il soit supprimé par session_destroy()
         header("Location: " . BASE_URL . "/index.php?message=" . urlencode("Vous avez été déconnecté."));
+        exit();
+    }
+    private function redirectWithMessage($url, $message, $type = 'success')
+    {
+        $_SESSION['message'] = $message;
+        $_SESSION['message_type'] = $type; // Ajoute le type du message (success ou danger)
+        header("Location: $url");
         exit();
     }
 }
