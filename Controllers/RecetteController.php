@@ -18,6 +18,25 @@ class RecetteController
         require_once __DIR__ . '/../Views/recettes.php';
     }
 
+    public function afficherRecettesUtilisateur()
+    {
+        if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
+            header("Location: index.php?page=signIn_signUp");
+            exit();
+        }
+
+        $email = $_SESSION['userEmail'] ?? null;
+
+        if ($email === null) {
+            header("Location: index.php?page=signIn_signUp");
+            exit();
+        }
+
+        $userRecipes = $this->recetteModel->getRecettesByUser($email);
+
+        require_once __DIR__ . '/../Views/userRecipes.php';
+    }
+
     public function ajouterRecette($postData, $userId, $email)
     {
         if (empty($postData['title']) || empty($postData['recipe'])) {

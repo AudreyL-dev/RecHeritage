@@ -145,5 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         default:
             require_once __DIR__ . '/Views/404.php'; // Page erreur si la page n'existe pas
             break;
+        case 'userRecipes':
+            $recetteController->afficherRecettesUtilisateur();
+            break;
     }
 }

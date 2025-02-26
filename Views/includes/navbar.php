@@ -38,7 +38,7 @@
                         <li><a href="<?= BASE_URL ?>/views/recipes_create.php"
                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajouter une
                                 recette</a></li>
-                        <li><a href="<?= BASE_URL ?>/views/userRecipes.php"
+                        <li><a href="<?= BASE_URL ?>/index.php?page=userRecipes"
                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Mes
                                 recettes</a></li>
                     </ul>
