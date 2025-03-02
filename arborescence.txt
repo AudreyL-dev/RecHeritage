@@ -21,7 +21,7 @@
 |   recettes.php
 |   recipes_create.php
 |   recipes_post_create.php
-|   recipes_update.php
+|   update_recipe.php
 |   recipe_delete.php
 |   sauvegardecode.php
 |   signIn.php
@@ -31,7 +31,7 @@
 |   submitContact.php
 |   tailwind.config.js
 |   traitement.php
-|   userRecipes.php
+|   user_recipes.php
 |   variables.php
 |   
 +---.vscode

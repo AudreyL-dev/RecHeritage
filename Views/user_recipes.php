@@ -31,7 +31,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
                                     Voir la recette
                                 </a>
                                 <div class="flex space-x-2">
-                                    <a href="recipes_update.php?id=<?php echo $recipe['recipe_id']; ?>"
+                                    <a href="<?= BASE_URL ?>/index.php?page=update_recipe&id=<?= $recipe['recipe_id']; ?>"
                                         class="text-sm text-[#6e7271] hover:text-[#acad94] transition">
                                         Modifier
                                     </a>

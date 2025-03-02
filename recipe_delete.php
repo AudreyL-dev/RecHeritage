@@ -22,7 +22,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
 
         <!-- Formulaire de mise à jour -->
         <div class="flex space-x-4 justify-center">
-            <form action="userRecipes.php" method="POST" class="space-y-6">
+            <form action="user_recipes.php" method="POST" class="space-y-6">
                 <!-- Inputs cachés -->
                 <div class="hidden">
                     <input type="hidden" name="form_type" value="delete_recipe">
@@ -34,7 +34,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
                 <div class="flex justify-end space-x-4">
                     <button type="submit"
                         class="appearance-none px-6 py-3 bg-danger text-white rounded-lg hover:bg-dangerHover  transition-all">Supprimer</button>
-                    <a href="userRecipes.php"
+                    <a href="user_recipes.php"
                         class=" px-6 py-3 bg-[#384d48] text-white rounded-lg hover:bg-[#6e7271] transition-all">
                         Annuler
                     </a>

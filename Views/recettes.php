@@ -2,12 +2,12 @@
 
 $pageTitle = "Site de recettes - Recettes"; // Définir le titre dynamique
 require_once __DIR__ . '/../config/autoload.php';
-require_once __DIR__ . '/../Controllers/RecetteController.php';
+require_once __DIR__ . '/../Controllers/RecipeController.php';
 
-use Controllers\RecetteController;
+use Controllers\RecipeController;
 
-$recetteController = new RecetteController();
-$recettes = $recetteController->getRecettes(); // Récupérer les recettes depuis le contrôleur
+$RecipeController = new RecipeController();
+$recettes = $RecipeController->getRecettes(); // Récupérer les recettes depuis le contrôleur
 
 
 require_once(__DIR__ . '/includes/head.php'); // Inclure le fichier d'en-tête

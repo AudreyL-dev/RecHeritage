@@ -31,7 +31,7 @@ WHERE recipes.author =:email AND recipes.is_enabled = true';
     $statementRecipesByUsers = $pdo->prepare($getRecipesByUsers);
     $statementRecipesByUsers->execute(['email' => $userEmail]);
     // Récupérer les recettes
-    $userRecipes = $statementRecipesByUsers->fetchAll(PDO::FETCH_ASSOC);
+    $user_recipes = $statementRecipesByUsers->fetchAll(PDO::FETCH_ASSOC);
 
     // Troisième requête
     //Récupérer les recettes par id

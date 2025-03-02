@@ -199,7 +199,7 @@ function handleUpdateRecipe($postData, $userEmail)
             'id' => $postData['recipe_id'],
             'email' => $userEmail
         ]);
-        header('Location: userRecipes.php');
+        header('Location: user_recipes.php');
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
@@ -214,7 +214,7 @@ function handleDeleteRecipe($postData)
         $deleteStatement = $mysqlClient->prepare($deleteQuery);
         $deleteStatement->execute(['recipe_id' => $postData['recipe_id']]);
 
-        header('Location: userRecipes.php'); // Redirection après suppression
+        header('Location: user_recipes.php'); // Redirection après suppression
         exit();
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());

@@ -3,7 +3,7 @@ namespace Models;
 use PDO;
 use PDOException;
 
-class Recette
+class Recipe
 {
     private $pdo;
 
@@ -41,7 +41,7 @@ class Recette
     }
 
     // Récupérer les recettes d'un utilisateur
-    public function getRecettesByUser($email)
+    public function getRecipesByUser($email)
     {
         $sql = "SELECT recipes.recipe_id, recipes.title, recipes.recipe 
                 FROM recipes
@@ -50,14 +50,14 @@ class Recette
     }
 
     // Récupérer une recette par ID
-    public function getRecetteById($recipeId)
+    public function getRecipeById($recipeId)
     {
         $sql = "SELECT title, recipe FROM recipes WHERE recipe_id = :recipe_id";
         return $this->executeQuery($sql, ['recipe_id' => $recipeId]);
     }
 
     // Ajouter une recette
-    public function addRecette($title, $recipe, $userId, $email)
+    public function addRecipeInDb($title, $recipe, $userId, $email)
     {
         $sql = "INSERT INTO recipes (title, recipe, is_enabled, user_id, author, created_at) 
                 VALUES (:title, :recipe, 1, :user_id, :author, NOW())";
@@ -70,7 +70,7 @@ class Recette
     }
 
     // Modifier une recette
-    public function updateRecette($recipeId, $title, $recipe, $email)
+    public function updateRecipeInDb($recipeId, $title, $recipe, $email)
     {
         $sql = "UPDATE recipes SET title = :title, recipe = :recipe 
                 WHERE recipe_id = :recipe_id AND author = :email";
@@ -83,7 +83,7 @@ class Recette
     }
 
     // Supprimer une recette
-    public function deleteRecette($recipeId, $email)
+    public function deleteRecipeInDb($recipeId, $email)
     {
         $sql = "DELETE FROM recipes WHERE recipe_id = :recipe_id AND author = :email";
         return $this->executeQuery($sql, [
