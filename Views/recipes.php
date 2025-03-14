@@ -7,7 +7,7 @@ require_once __DIR__ . '/../Controllers/RecipeController.php';
 use Controllers\RecipeController;
 
 $RecipeController = new RecipeController();
-$recettes = $RecipeController->getRecettes(); // Récupérer les recettes depuis le contrôleur
+$recipes = $RecipeController->getRecipes(); // Récupérer les recettes depuis le contrôleur
 
 
 require_once(__DIR__ . '/includes/head.php'); // Inclure le fichier d'en-tête
@@ -26,7 +26,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     <div class="p-4">
         <div class="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!--Boucle sur les recettes-->
-            <?php foreach ($recettes as $recipe): ?>
+            <?php foreach ($recipes as $recipe): ?>
                 <div
                     class="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 p-4">
 

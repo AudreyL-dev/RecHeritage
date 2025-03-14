@@ -60,7 +60,7 @@ class UserController
             if ($user !== null) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['pseudo'] = $user['pseudo']; // Stocker le pseudo dans la session
-                $this->redirectWithMessage(BASE_URL . "/index.php?page=recettes", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
+                $this->redirectWithMessage(BASE_URL . "/index.php?page=recipes", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
             } else {
                 $this->redirectWithMessage("signIn.php", "Identifiants incorrects.", "danger");
             }

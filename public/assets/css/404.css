@@ -1,0 +1,44 @@
+/* On s'assure que le body et html occupent toute la hauteur et largeur de l'écran */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+/* L'image en background ne doit pas être rognée ni déformée */
+.error-background {
+    background-image: url('../img/error_404.svg');
+    background-size: cover;
+    /* Cette règle permet de contenir l'image sans la couper */
+    background-position: center;
+    /* On centre l'image */
+    background-repeat: no-repeat;
+    /* Pas de répétition */
+    height: 100vh;
+    width: 100vw;
+
+
+}
+
+/* Le lien est centré sur l'écran */
+.egg-link {
+    color: white;
+    font-size: 2rem;
+    text-decoration: none;
+
+    /* Fond sombre semi-transparent */
+    padding: 12vh;
+    border-radius: 50%;
+}
+
+.error-explication {
+    position: fixed;
+    color: white;
+    bottom: 0vh;
+    left: 0;
+    width: 100vw;
+    /* Prend toute la largeur */
+
+    padding: 1vh;
+    text-align: center;
+}

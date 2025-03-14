@@ -29,7 +29,7 @@ class Recipe
         }
     }
     // Récupérer toutes les recettes publiques
-    public function getPublicRecettes()
+    public function getPublicRecipes()
     {
         $sql = "SELECT recipes.recipe_id, recipes.title, recipes.recipe, 
                        IFNULL(users.pseudo, 'Contributeur anonyme') AS pseudo, 

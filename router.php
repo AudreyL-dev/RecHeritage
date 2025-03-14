@@ -127,14 +127,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $page = $_GET['page'] ?? 'home';
 
     switch ($page) {
-        case 'recettes':
+        case 'recipes':
             $RecipeController->showRecipes();
             break;
         case 'home':
             require_once __DIR__ . '/Views/home.php';
             break;
         default:
-            require_once __DIR__ . '/Views/404.php'; // Page erreur si la page n'existe pas
+            require_once __DIR__ . '/Views/errors/404.php'; // Page erreur si la page n'existe pas
             break;
         case 'user_recipes':
             $RecipeController->showUserRecipes();

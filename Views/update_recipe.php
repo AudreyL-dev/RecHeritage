@@ -21,7 +21,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
 
         <!-- Formulaire de mise à jour -->
         <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
-            <form action="user_recipes.php" method="POST" class="space-y-6">
+            <form action="../router.php" method="POST" class="space-y-6">
                 <!-- Inputs cachés -->
                 <div class="hidden">
                     <input type="hidden" name="form_type" value="update_recipe">

@@ -14,8 +14,8 @@ class RecipeController
 
     public function showRecipes()
     {
-        $recettes = $this->recipeModel->getPublicRecettes();
-        require_once __DIR__ . '/../Views/recettes.php';
+        $recipes = $this->recipeModel->getPublicRecipes();
+        require_once __DIR__ . '/../Views/recipes.php';
     }
 
     public function showUserRecipes()
@@ -66,7 +66,7 @@ class RecipeController
         $success = $this->recipeModel->addRecipeInDb($postData['title'], $postData['recipe'], $userId, $email);
 
         if ($success) {
-            $this->redirectWithMessage(BASE_URL . "/views/recettes.php", "Recette ajoutée avec succès.", "success");
+            $this->redirectWithMessage(BASE_URL . "/views/recipes.php", "Recette ajoutée avec succès.", "success");
         } else {
             $this->redirectWithMessage(BASE_URL . "/views/recipes_create.php", "Erreur lors de l'ajout.", "danger");
         }
@@ -100,14 +100,14 @@ class RecipeController
         $success = $this->recipeModel->deleteRecipeInDb($recipeId, $email);
 
         if ($success) {
-            $this->redirectWithMessage(BASE_URL . "/views/recettes.php", "Recette supprimée.", "success");
+            $this->redirectWithMessage(BASE_URL . "/views/recipes.php", "Recette supprimée.", "success");
         } else {
-            $this->redirectWithMessage(BASE_URL . "/views/recettes.php", "Erreur lors de la suppression.", "danger");
+            $this->redirectWithMessage(BASE_URL . "/views/recipes.php", "Erreur lors de la suppression.", "danger");
         }
     }
-    public function getRecettes()
+    public function getRecipes()
     {
-        return $this->recipeModel->getPublicRecettes();
+        return $this->recipeModel->getPublicRecipes();
     }
     private function redirectWithMessage($url, $message, $type = 'success')
     {
