@@ -8,10 +8,14 @@ module.exports = {
     "./dist/**/*.css", // Fichiers CSS générés dans "dist"
     "./img/**/*.{png,jpg,jpeg,svg,webp}", // Images utilisées dans le dossier "img"
     "./node_modules/**/*.{js,css}", // Modules Node.js pertinents
+    "./Views/**/*.php",
   ],
   safelist: ["hs-password-active:hidden", "hs-password-active:block"],
   theme: {
     extend: {
+      fontFamily: {
+        lora: ['"Lora"', "serif"],
+      },
       colors: {
         primary: "#384D48",
         secondary: "#6E7271",
@@ -20,6 +24,12 @@ module.exports = {
         light: "#E2E2E2",
         danger: "#B91C1C",
         dangerHover: "#EF4444",
+      },
+      backgroundImage: {
+        "custom-radial":
+          "radial-gradient(circle at top left, #8a8978, #8f8e77 30%, #8e8c78 60%, #8b8975 100%)",
+        "all-site": "url('/public/assets/img/bg-cookBook.webp')",
+        "error-404": "url('/public/assets/img/bg-404-cookBook.svg')",
       },
     },
   },

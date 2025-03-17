@@ -20,7 +20,7 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
 }
 
 ?>
-<body class="min-h-screen bg-[#f8f8f8] text-[#384d48] flex flex-col"">
+<body class="min-h-screen bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed  text-[#384d48] flex flex-col"">
     <div class=" container mx-auto p-4">
     <h1 class="text-3xl font-semibold text-[#384d48] mb-6">Recettes</h1>
     <div class="p-4">
