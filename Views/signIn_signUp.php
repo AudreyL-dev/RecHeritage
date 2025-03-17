@@ -12,7 +12,7 @@ require_once __DIR__ . '/../Views/includes/head.php'; // Inclure le fichier d'en
         <h1 class="text-3xl font-bold mb-6">Connexion / Inscription</h1>
 
         <!-- Formulaire -->
-        <form action="<?= str_replace('/public', '', BASE_URL) ?>/router.php" method="POST"
+        <form action="<?= BASE_URL ?>/index.php?page=sign_in_sign_up" method="POST"
             class="bg-white shadow-md rounded-lg p-6 max-w-sm w-full space-y-6">
             <input type="hidden" name="form_type" value="sign_in_sign_up">
             <!-- Champ E-mail -->

@@ -46,7 +46,8 @@ class RecipeController
         }
 
         $recipe = $this->recipeModel->getRecipeById($recipeId);
-        if (!$recipe) {
+        $email = $_SESSION['userEmail'] ?? '';
+        if (!$recipe || $recipe['author'] !== $email) {
             $this->redirectWithMessage(BASE_URL . "/index.php?page=user_recipes", "Recette non trouvée.", "danger");
         }
 
@@ -85,13 +86,26 @@ class RecipeController
             $this->redirectWithMessage(BASE_URL . "/index.php?page=update_recipe&id=" . $postData['recipe_id'], "Tous les champs sont requis.", "danger");
         }
 
-        // Mise à jour de la recette
-        $success = $this->recipeModel->updateRecipeInDb($postData['recipe_id'], $postData['title'], $postData['recipe'], $_SESSION['userEmail']);
+        // Sécurisation des données
+        $recipeId = intval($postData['recipe_id']);
+        $title = trim(strip_tags($postData['title']));
+        $recipe = trim(strip_tags($postData['recipe']));
+        $email = $_SESSION['userEmail'] ?? '';
 
+        //  Vérifier que la recette appartient à l'utilisateur
+        $recipeOwner = $this->recipeModel->getRecipeById($recipeId);
+        if (!$recipeOwner || $recipeOwner['author'] !== $email) {
+            $this->redirectWithMessage(BASE_URL . "/index.php?page=user_recipes", "Vous ne pouvez pas modifier cette recette.", "danger");
+        }
+
+        //  Mise à jour de la recette
+        $success = $this->recipeModel->updateRecipeInDb($recipeId, $title, $recipe, $email);
+
+        // Redirection selon succès ou échec
         if ($success) {
             $this->redirectWithMessage(BASE_URL . "/index.php?page=user_recipes", "Recette modifiée avec succès.", "success");
         } else {
-            $this->redirectWithMessage(BASE_URL . "/index.php?page=update_recipe&id=" . $postData['recipe_id'], "Erreur lors de la modification.", "danger");
+            $this->redirectWithMessage(BASE_URL . "/index.php?page=update_recipe&id=" . $recipeId, "Erreur lors de la modification.", "danger");
         }
     }
 

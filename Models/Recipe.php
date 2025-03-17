@@ -52,7 +52,7 @@ class Recipe
     // Récupérer une recette par ID
     public function getRecipeById($recipeId)
     {
-        $sql = "SELECT title, recipe FROM recipes WHERE recipe_id = :recipe_id";
+        $sql = "SELECT title, recipe, author FROM recipes WHERE recipe_id = :recipe_id";
         return $this->executeQuery($sql, ['recipe_id' => $recipeId]);
     }
 
@@ -74,12 +74,18 @@ class Recipe
     {
         $sql = "UPDATE recipes SET title = :title, recipe = :recipe 
                 WHERE recipe_id = :recipe_id AND author = :email";
-        return $this->executeQuery($sql, [
+
+        $query = $this->pdo->prepare($sql);
+        $query->execute([
             'title' => $title,
             'recipe' => $recipe,
             'recipe_id' => $recipeId,
             'email' => $email
         ]);
+
+
+        // Si aucune ligne modifiée mais requête exécutée sans erreur, on retourne aussi true.
+        return $query->rowCount() > 0 || $query->errorCode() === '00000';
     }
 
     // Supprimer une recette
