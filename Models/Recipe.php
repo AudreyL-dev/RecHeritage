@@ -13,19 +13,27 @@ class Recipe
     }
 
     // Méthode pour exécuter les requêtes et gérer les erreurs
-    private function executeQuery($sql, $params = [], $fetchMode = PDO::FETCH_ASSOC, $fetchAll = false)
+    private function executeQuery($sql, $params = [], $fetchMode = PDO::FETCH_ASSOC, $fetchAll = false, $isWriteOperation = false)
     {
         try {
             $query = $this->pdo->prepare($sql);
             $query->execute($params);
 
+            // ✅ Si c'est une requête d'écriture (INSERT, UPDATE, DELETE)
+            if ($isWriteOperation) {
+                // On retourne true si au moins une ligne est affectée OU si l'exécution est réussie sans erreur
+                return $query->rowCount() > 0 || $query->errorCode() === '00000';
+            }
+
+            // ✅ Si c'est une requête de lecture (SELECT)
             if ($fetchAll) {
                 return $query->fetchAll($fetchMode);
             }
             return $query->fetch($fetchMode);
+
         } catch (PDOException $e) {
             error_log("Erreur SQL : " . $e->getMessage());
-            return false;
+            return false; // Retourne false en cas d'erreur d'exécution
         }
     }
     // Récupérer toutes les recettes publiques
@@ -75,17 +83,12 @@ class Recipe
         $sql = "UPDATE recipes SET title = :title, recipe = :recipe 
                 WHERE recipe_id = :recipe_id AND author = :email";
 
-        $query = $this->pdo->prepare($sql);
-        $query->execute([
+        return $this->executeQuery($sql, [
             'title' => $title,
             'recipe' => $recipe,
             'recipe_id' => $recipeId,
             'email' => $email
-        ]);
-
-
-        // Si aucune ligne modifiée mais requête exécutée sans erreur, on retourne aussi true.
-        return $query->rowCount() > 0 || $query->errorCode() === '00000';
+        ], PDO::FETCH_ASSOC, false, true); //  Note le `true` à la fin !
     }
 
     // Supprimer une recette

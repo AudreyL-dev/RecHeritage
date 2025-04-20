@@ -15,6 +15,8 @@ module.exports = {
     extend: {
       fontFamily: {
         lora: ['"Lora"', "serif"],
+        rouge_script: ['"Rouge Script"', "serif"],
+        bellota: ['"Bellota"', "sans-serif"],
       },
       colors: {
         primary: "#384D48",
@@ -28,8 +30,8 @@ module.exports = {
       backgroundImage: {
         "custom-radial":
           "radial-gradient(circle at top left, #8a8978, #8f8e77 30%, #8e8c78 60%, #8b8975 100%)",
-        "all-site": "url('/public/assets/img/bg-cookBook.webp')",
-        "error-404": "url('/public/assets/img/bg-404-cookBook.svg')",
+        "all-site": "url('/public/assets/img/bg-rec-heritage.webp')",
+        "error-404": "url('/public/assets/img/bg-404-rec-heritage.webp')",
       },
     },
   },

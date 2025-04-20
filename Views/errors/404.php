@@ -8,7 +8,7 @@ include __DIR__ . '/../includes/head.php';
     <a class="p-[12vh] rounded-full" href="<?php echo BASE_URL . '/index.php'; ?>" aria-label="Retour à l’accueil"></a>
 </div>
 <div
-    class="fixed bottom-0 left-0 w-screen p-[1vh] text-center font-lora text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+    class="fixed bottom-0 left-0 w-screen p-[1vh] text-center font-bellota text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">
     Oups! Cette page a disparu
     du menu mais tu peux cliquer sur l'œuf pour retourner à l'accueil.</div>
 </body>

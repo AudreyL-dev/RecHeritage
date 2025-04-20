@@ -8,9 +8,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
+    <title><?php echo "Recettes en Héritage - " . $pageTitle; ?></title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/dist/output.css">
+
+
+   <!-- Favicon par défaut (pour compatibilité maximale) -->
+<link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/assets/img/favicon-light.svg">
+
+<!-- Favicon Light Mode (Mode Clair) -->
+<link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/assets/img/favicon-light.svg" media="(prefers-color-scheme: light)">
+
+<!-- Favicon Dark Mode (Mode Sombre) -->
+<link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/assets/img/favicon-dark.svg" media="(prefers-color-scheme: dark)">
+
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bellota:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/favicon.ico">
     <script>
         const users = <?php echo json_encode($users); ?>;
     </script>

@@ -1,10 +1,11 @@
 <!-- navbar.php -->
-<nav class="bg-gray-100 shadow-md">
-    <div class="container mx-auto px-4 flex justify-between items-center">
+<nav class="bg-gray-100/0 backdrop-blur-sm shadow-md h-20 flex items-center">
+    <div class="w-full px-4 flex justify-between items-center h-full">
         <!-- Logo intégré -->
-        <a href="<?= BASE_URL ?>/index.php" class="flex items-center space-x-2">
-            <img src="<?= BASE_URL ?>/assets/img/DALL_E_logo.png" alt="Logo Site de recettes" class="h-10 w-10">
-            <span class="text-lg font-bold text-gray-800">Site de recettes</span>
+        <a href="<?= BASE_URL ?>/index.php" class="flex items-center space-x-2 justify-start">
+            <img src="<?= BASE_URL ?>/assets/img/logo-rec-heritage.svg" alt="Logo Site de recettes"
+                class="h-full max-h-[80px]">
+
         </a>
 
         <!-- Bouton hamburger (mobile) -->
@@ -18,15 +19,16 @@
         <!-- Liens de navigation -->
         <div id="menu" class="hidden lg:flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
             <a href="<?= BASE_URL ?>/index.php?page=home"
-                class="text-gray-700 hover:text-gray-900 transition">Accueil</a>
-            <a href="<?= BASE_URL ?>/views/contact.php" class="text-gray-700 hover:text-gray-900 transition">Contact</a>
+                class="font-bellota text-gray-300 hover:text-white text-2xl transition">Accueil</a>
+            <a href="<?= BASE_URL ?>/views/contact.php"
+                class="font-bellota text-gray-300 hover:text-white text-2xl transition">Contact</a>
             <a href="<?= BASE_URL ?>/index.php?page=recettes"
-                class="text-gray-700 hover:text-gray-900 transition">Recettes</a>
+                class="font-bellota text-gray-300 hover:text-white text-2xl transition">Recettes</a>
 
             <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true): ?>
                 <!-- Menu utilisateur connecté -->
                 <div class="relative" id="user-menu">
-                    <button class="flex items-center text-gray-700 hover:text-gray-900 transition">
+                    <button class="flex items-center font-bellota text-gray-300 hover:text-white text-2xl transition">
                         <?php echo htmlspecialchars($_SESSION['pseudo']); ?>
                         <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +36,7 @@
                         </svg>
                     </button>
                     <ul id="user-dropdown"
-                        class="absolute hidden bg-white shadow-md rounded-md mt-2 w-48 transition-all duration-300 ease-in-out opacity-0">
+                        class="absolute hidden bg-white/90 shadow-md rounded-md mt-2 w-48 transition-all duration-300 ease-in-out opacity-0">
                         <li><a href="<?= BASE_URL ?>/views/recipes_create.php"
                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Ajouter une
                                 recette</a></li>
@@ -43,10 +45,12 @@
                                 recettes</a></li>
                     </ul>
                 </div>
-                <a href="<?= BASE_URL ?>/signOut.php" class="text-gray-700 hover:text-gray-900 transition">Déconnexion</a>
+                <a href="<?= BASE_URL ?>/signOut.php"
+                    class="font-bellota text-gray-300 hover:text-white text-2xl transition">Déconnexion</a>
             <?php else: ?>
                 <!-- Lien de connexion si déconnecté -->
-                <a href="<?= BASE_URL ?>/../views/signIn_signUp.php" class="text-gray-700 hover:text-gray-900 transition">Me
+                <a href="<?= BASE_URL ?>/../views/signIn_signUp.php"
+                    class="font-bellota text-gray-300 hover:text-white text-2xl transition">Me
                     connecter</a>
             <?php endif; ?>
         </div>

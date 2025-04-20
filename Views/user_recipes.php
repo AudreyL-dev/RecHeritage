@@ -22,9 +22,13 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
                 <?php foreach ($userRecipes as $recipe): ?>
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
                         <div class="p-4">
-                            <h2 class="text-xl font-bold text-[#6e7271] mb-2"><?php echo htmlspecialchars($recipe['title']); ?>
+                            <h2 class="text-2xl font-bellota text-[#6e7271] mb-2">
+                                <?php echo htmlspecialchars($recipe['title']); ?>
                             </h2>
-                            <p class="text-sm text-[#acad94] mb-4"><?php echo htmlspecialchars($recipe['recipe']); ?></p>
+                            <p class="text-xl text-[#acad94] mb-4 font-bellota
+                            ">
+                                <?php echo htmlspecialchars($recipe['recipe']); ?>
+                            </p>
                             <div class="flex justify-between">
                                 <a href="index.php?page=recipe_view.php?id=<?php echo $recipe['recipe_id']; ?>"
                                     class="text-sm text-[#384d48] hover:text-[#acad94] transition">
