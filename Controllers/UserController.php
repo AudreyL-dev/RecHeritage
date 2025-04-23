@@ -1,24 +1,26 @@
 <?php
 namespace Controllers;
+
 require_once __DIR__ . '/../Models/User.php';
 use Models\User;
+
 class UserController
 {
     private $userModel;
-
 
     public function __construct()
     {
         $this->userModel = new User();
     }
+
     public function signUp($postData)
     {
         if (empty($postData['email']) || empty($postData['pseudo']) || empty($postData['password']) || empty($postData['confirm_password']) || empty($postData['birthDate'])) {
-            $this->redirectWithMessage(BASE_URL . "/views/signUp.php", "Tous les champs sont obligatoires.", "danger");
+            $this->redirectWithMessage(route('sign_up'), 'Tous les champs sont obligatoires.', 'danger');
         }
 
         if ($postData['password'] !== $postData['confirm_password']) {
-            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signUp.php", "Les mots de passe ne correspondent pas.", "danger");
+            $this->redirectWithMessage(route('sign_up'), 'Les mots de passe ne correspondent pas.', 'danger');
         }
 
         $message = $this->userModel->createUser(
@@ -28,23 +30,25 @@ class UserController
             $postData['birthDate']
         );
 
-        if ($message === "Inscription réussie.") {
-            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signIn.php", "Inscription réussie. Vous pouvez maintenant vous connecter !", "success");
+        if ($message === 'Inscription réussie.') {
+            $this->redirectWithMessage(route('sign_in'), 'Inscription réussie. Vous pouvez maintenant vous connecter !', 'success');
         } else {
-            $this->redirectWithMessage(str_replace('/public', '', BASE_URL) . "/views/signUp.php", $message, "danger");
+            $this->redirectWithMessage(route('sign_up'), $message, 'danger');
         }
     }
+
     public function checkEmailAndRedirect($email)
     {
         if ($this->userModel->emailExists($email)) {
             $_SESSION['userEmail'] = $email;
-            header('Location: /views/signIn.php');
+            header('Location: ' . route('sign_in'));
         } else {
             $_SESSION['userEmail'] = $email;
-            header('Location: /views/signUp.php');
+            header('Location: ' . route('sign_up'));
         }
         exit();
     }
+
     public function signIn($postData)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -52,34 +56,34 @@ class UserController
             $password = $postData['signIn_password'] ?? '';
 
             if (empty($email) || empty($password)) {
-                $this->redirectWithMessage("signIn.php", "Veuillez remplir tous les champs.");
+                $this->redirectWithMessage(route('sign_in'), 'Veuillez remplir tous les champs.');
             }
 
             $user = $this->userModel->authenticateUser($email, $password);
 
             if ($user !== null) {
                 $_SESSION['loggedIn'] = true;
-                $_SESSION['pseudo'] = $user['pseudo']; // Stocker le pseudo dans la session
-                $this->redirectWithMessage(BASE_URL . "/index.php?page=recipes", "Connexion réussie, bienvenue " . $user['pseudo'] . " !", "success");
+                $_SESSION['pseudo'] = $user['pseudo'];
+                $this->redirectWithMessage(route('recipes'), 'Connexion réussie, bienvenue ' . $user['pseudo'] . ' !', 'success');
             } else {
-                $this->redirectWithMessage("signIn.php", "Identifiants incorrects.", "danger");
+                $this->redirectWithMessage(route('sign_in'), 'Identifiants incorrects.', 'danger');
             }
         }
     }
+
     public function signOut()
     {
+        session_unset();
+        session_destroy();
 
-        session_unset(); // Supprime toutes les variables de session
-        session_destroy(); // Détruit la session
-
-        // Passer le message dans l'URL pour éviter qu'il soit supprimé par session_destroy()
-        header("Location: " . BASE_URL . "/index.php?message=" . urlencode("Vous avez été déconnecté."));
+        header('Location: ' . route('home') . '&message=' . urlencode('Vous avez été déconnecté.'));
         exit();
     }
+
     private function redirectWithMessage($url, $message, $type = 'success')
     {
         $_SESSION['message'] = $message;
-        $_SESSION['message_type'] = $type; // Ajoute le type du message (success ou danger)
+        $_SESSION['message_type'] = $type;
         header("Location: $url");
         exit();
     }

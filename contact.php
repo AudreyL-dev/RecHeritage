@@ -14,7 +14,7 @@ require_once(__DIR__ . '/head.php'); // Inclure le fichier d'en-tête
         <h1 class="text-3xl font-bold text-[#384d48] mb-6">Contactez-nous</h1>
 
         <!-- Formulaire de contact -->
-        <form action="submitContact.php" method="POST" enctype="multipart/form-data" class="w-full max-w-lg space-y-6">
+        <form action="submit_contact.php" method="POST" enctype="multipart/form-data" class="w-full max-w-lg space-y-6">
             <input type="hidden" name="form_type" value="contact_form">
             <!-- Champ Email -->
             <div class="space-y-2">

@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /*-----------------------------------------------------------------------------------*/
-/*---------------------signUp.php-------------------------------------------- */
+/*---------------------sign_up.php-------------------------------------------- */
 
 document.querySelectorAll(".toggle-password").forEach((button) => {
   button.addEventListener("click", function () {

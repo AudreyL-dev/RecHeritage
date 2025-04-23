@@ -1,3 +1,9 @@
 RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/dist/
-RewriteRule ^(.*)$ ../dist/$1 [L]
+RewriteBase /RecHeritage/
+
+# Si le fichier ou dossier existe, on ne fait rien
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon on redirige tout vers index.php
+RewriteRule ^ index.php [QSA,L]

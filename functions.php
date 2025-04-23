@@ -130,7 +130,7 @@ function handleFormSubmission($postData, $fileData)
     global $champRequis; // Utiliser la variable globale pour stocker le message
 
     if (!checkPostRequest()) {
-        header('Location:ErreurRequest.php');
+        header('Location:error_request.php');
         exit();
 
     }
