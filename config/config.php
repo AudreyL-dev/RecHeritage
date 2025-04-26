@@ -1,3 +1,3 @@
 <?php
-define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
+define('BASE_URL', rtrim(str_replace('/public', '', dirname($_SERVER['SCRIPT_NAME'])), '/'));
 ?>

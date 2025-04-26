@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'contact_form':
-            handleFormSubmission($_POST, $_FILES);
+            (new Controllers\ContactController())->submitForm($_POST, $_FILES);
             break;
 
         default:
