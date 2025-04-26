@@ -22,7 +22,7 @@ require_once __DIR__ . '/includes/head.php'; // Inclure le fichier d'en-tête
             <div class="space-y-3">
                 <p class='text-lg'><b>Email:</b> <?= htmlspecialchars($email) ?></p>
                 <p class='text-lg'><b>Message:</b> <?= nl2br(htmlspecialchars(strip_tags($message_contact))) ?></p>
-                <p class='text-lg'><b>Votre capture d'écran:</b> <?= htmlspecialchars($screenshot_name) ?></p>
+                <p class='text-lg'><b>Votre capture d'écran:</b> <?= htmlspecialchars($original_name) ?></p>
             </div>
 
         </div>

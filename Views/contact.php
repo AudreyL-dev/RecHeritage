@@ -49,6 +49,17 @@ require_once __DIR__ . '/includes/head.php'; // Inclure le fichier d'en-tête
                         id="screenshot" name="screenshot">
                     <button type="button" class="absolute top-2 right-2 text-xl text-gray-500">×</button>
                 </div>
+                <?php if (!empty($_SESSION['message'])): ?>
+                    <div class="w-full max-w-lg mb-6 p-4 rounded-lg 
+        <?= $_SESSION['message_type'] === 'danger' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' ?>">
+                        <?= htmlspecialchars($_SESSION['message']) ?>
+                    </div>
+                    <?php
+                    // Nettoyer après affichage pour ne pas garder le message
+                    unset($_SESSION['message']);
+                    unset($_SESSION['message_type']);
+                    ?>
+                <?php endif; ?>
             </div>
 
             <!-- Boutons -->
