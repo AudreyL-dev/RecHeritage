@@ -56,14 +56,19 @@ class UserController
             $password = $postData['signIn_password'] ?? '';
 
             if (empty($email) || empty($password)) {
-                $this->redirectWithMessage(route('sign_in'), 'Veuillez remplir tous les champs.');
+                $this->redirectWithMessage(route('sign_in'), 'Veuillez remplir tous les champs.', 'danger');
             }
+
+
 
             $user = $this->userModel->authenticateUser($email, $password);
 
             if ($user !== null) {
                 $_SESSION['loggedIn'] = true;
                 $_SESSION['pseudo'] = $user['pseudo'];
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['userEmail'] = $user['email'];
+
                 $this->redirectWithMessage(route('recipes'), 'Connexion réussie, bienvenue ' . $user['pseudo'] . ' !', 'success');
             } else {
                 $this->redirectWithMessage(route('sign_in'), 'Identifiants incorrects.', 'danger');
@@ -75,8 +80,7 @@ class UserController
     {
         session_unset();
         session_destroy();
-
-        header('Location: ' . route('home') . '&message=' . urlencode('Vous avez été déconnecté.'));
+        header('Location: ' . route('home'));
         exit();
     }
 

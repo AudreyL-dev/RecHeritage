@@ -75,7 +75,9 @@ require_once(__DIR__ . '/../Views/includes/head.php'); // Inclure le fichier d'e
                     Se connecter
                 </button>
             </div>
+
         </form>
     </div>
+
 </body>
 </html>

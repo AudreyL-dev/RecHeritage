@@ -13,6 +13,7 @@ require_once __DIR__ . '/csrf.php';
 
 // Fonctions utilitaires globales
 require_once __DIR__ . '/../helpers/url.php';
+require_once __DIR__ . '/../helpers/csrf_helpers.php';
 
 // Autoload des classes
 spl_autoload_register(function ($class) {

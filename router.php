@@ -28,7 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'add_recipe':
-            $RecipeController->ajouterRecette($_POST, $_SESSION['user_id'], $_SESSION['userEmail']);
+            if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
+                header('Location: ' . route('sign_in_sign_up'));
+                exit();
+            }
+            $RecipeController->addRecipe($_POST, $_SESSION['user_id'], $_SESSION['userEmail']);
             break;
 
         case 'update_recipe':
@@ -36,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'delete_recipe':
-            $RecipeController->supprimerRecette($_POST['recipe_id'], $_SESSION['userEmail']);
+            $RecipeController->deleteRecipe($_POST['recipe_id'], $_SESSION['userEmail']);
             break;
 
         case 'contact_form':
@@ -79,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'recipes_create':
-            require_once __DIR__ . '/Views/recipes_create.php';
+            require_once __DIR__ . '/Views/recipe_create.php';
             break;
 
         case 'user_recipes':

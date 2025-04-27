@@ -47,13 +47,17 @@ class User
     public function authenticateUser($email, $password)
     {
         try {
-            $sql = "SELECT pseudo, password FROM users WHERE email = :email";
+            $sql = "SELECT user_id, pseudo, password, email FROM users WHERE email = :email";
             $query = $this->pdo->prepare($sql);
             $query->execute(['email' => $email]);
             $user = $query->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password'])) {
-                return ['pseudo' => $user['pseudo']];
+                return [
+                    'user_id' => $user['user_id'],
+                    'pseudo' => $user['pseudo'],
+                    'email' => $user['email']
+                ];
             }
             return null;
         } catch (PDOException $e) {

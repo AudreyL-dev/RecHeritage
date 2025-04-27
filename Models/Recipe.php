@@ -19,13 +19,10 @@ class Recipe
             $query = $this->pdo->prepare($sql);
             $query->execute($params);
 
-            // ✅ Si c'est une requête d'écriture (INSERT, UPDATE, DELETE)
             if ($isWriteOperation) {
-                // On retourne true si au moins une ligne est affectée OU si l'exécution est réussie sans erreur
-                return $query->rowCount() > 0 || $query->errorCode() === '00000';
+                return $query->errorCode() === '00000';
             }
 
-            // ✅ Si c'est une requête de lecture (SELECT)
             if ($fetchAll) {
                 return $query->fetchAll($fetchMode);
             }
@@ -33,10 +30,15 @@ class Recipe
 
         } catch (PDOException $e) {
             error_log("Erreur SQL : " . $e->getMessage());
-            return false; // Retourne false en cas d'erreur d'exécution
+            return false;
         }
     }
     // Récupérer toutes les recettes publiques
+    /**
+     * Récupère toutes les recettes publiques visibles
+     *
+     * @return array|null
+     */
     public function getPublicRecipes()
     {
         $sql = "SELECT recipes.recipe_id, recipes.title, recipes.recipe, 
@@ -67,15 +69,26 @@ class Recipe
     // Ajouter une recette
     public function addRecipeInDb($title, $recipe, $userId, $email)
     {
-        $sql = "INSERT INTO recipes (title, recipe, is_enabled, user_id, author, created_at) 
-                VALUES (:title, :recipe, 1, :user_id, :author, NOW())";
-        return $this->executeQuery($sql, [
-            'title' => $title,
-            'recipe' => $recipe,
-            'user_id' => $userId,
-            'author' => $email
-        ]);
+        try {
+            $sql = "INSERT INTO recipes (title, recipe, is_enabled, author, created_at, user_id) 
+                VALUES (:title, :recipe, 1, :author, NOW(), :user_id)";
+            return $this->executeQuery(
+                $sql,
+                [
+                    'title' => $title,
+                    'recipe' => $recipe,
+                    'user_id' => $userId,
+                    'author' => $email
+                ],
+                PDO::FETCH_ASSOC,
+                false,
+                true  // ✅ très important => indique que c'est une écriture
+            );
+        } catch (\PDOException $e) {
+            die('Erreur SQL : ' . $e->getMessage());
+        }
     }
+
 
     // Modifier une recette
     public function updateRecipeInDb($recipeId, $title, $recipe, $email)
