@@ -91,4 +91,78 @@ class User
             return false;
         }
     }
+    // Trouver un utilisateur par son email
+    public function findByEmail(string $email): ?array
+    {
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
+            $stmt->execute(['email' => $email]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            error_log('Erreur findByEmail : ' . $e->getMessage());
+            return null;
+        }
+    }
+    // Sauvegarder un token de réinitialisation
+    public function saveResetToken(int $userId, string $token): bool
+    {
+        try {
+            // Appel à ta procédure stockée
+            $stmt = $this->pdo->prepare('CALL create_reset_token(:user_id, :token)');
+            return $stmt->execute([
+                'user_id' => $userId,
+                'token' => $token
+            ]);
+        } catch (PDOException $e) {
+            error_log('Erreur saveResetToken : ' . $e->getMessage());
+            return false;
+        }
+    }
+    // Trouver un utilisateur par son token de réinitialisation
+    public function findByResetToken(string $token): ?array
+    {
+        try {
+            $stmt = $this->pdo->prepare('
+            SELECT u.*
+            FROM users u
+            INNER JOIN password_resets pr ON pr.user_id = u.user_id
+            WHERE pr.token = :token
+              AND pr.expires_at > NOW()
+            LIMIT 1
+        ');
+            $stmt->execute(['token' => $token]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            error_log('Erreur findByResetToken : ' . $e->getMessage());
+            return null;
+        }
+    }
+    // Mettre à jour le mot de passe
+    public function updatePassword(int $userId, string $hashedPassword): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare('UPDATE users SET password = :password WHERE user_id = :user_id');
+            return $stmt->execute([
+                'password' => $hashedPassword,
+                'user_id' => $userId
+            ]);
+        } catch (PDOException $e) {
+            error_log('Erreur updatePassword : ' . $e->getMessage());
+            return false;
+        }
+    }
+    // Supprimer un token de réinitialisation
+    public function clearResetToken(int $userId): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare('DELETE FROM password_resets WHERE user_id = :user_id');
+            return $stmt->execute([
+                'user_id' => $userId
+            ]);
+        } catch (PDOException $e) {
+            error_log('Erreur clearResetToken : ' . $e->getMessage());
+            return false;
+        }
+    }
+
 }

@@ -4,14 +4,20 @@ require_once __DIR__ . '/config/autoload.php';
 
 use Controllers\UserController;
 use Controllers\RecipeController;
+use Controllers\ContactController;
+use Controllers\PasswordController;
 
+// Instanciation des contrôleurs
 $userController = new UserController();
-$RecipeController = new RecipeController();
+$recipeController = new RecipeController();
+$contactController = new ContactController();
+$passwordController = new PasswordController();
+
+$page = $_GET['page'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$page = $page === '' ? 'home' : $page;
 
 // Traitement POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $page = $_GET['page'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-    $page = $page === '' ? 'home' : $page;
 
     switch ($page) {
         case 'sign_in':
@@ -32,30 +38,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: ' . route('sign_in_sign_up'));
                 exit();
             }
-            $RecipeController->addRecipe($_POST, $_SESSION['user_id'], $_SESSION['userEmail']);
+            $recipeController->addRecipe($_POST, $_SESSION['user_id'], $_SESSION['userEmail']);
             break;
 
         case 'update_recipe':
-            $RecipeController->updateRecipe($_POST);
+            $recipeController->updateRecipe($_POST);
             break;
 
         case 'delete_recipe':
-            $RecipeController->deleteRecipe($_POST['recipe_id'], $_SESSION['userEmail']);
+            $recipeController->deleteRecipe($_POST['recipe_id'], $_SESSION['userEmail']);
             break;
 
         case 'contact_form':
             (new Controllers\ContactController())->submitForm($_POST, $_FILES);
             break;
 
+        case 'reset_request':
+            $passwordController->handleResetRequest($_POST);
+            break;
+
+        case 'reset':
+            $passwordController->handleReset($_POST);
+            break;
+
         default:
-            echo 'Formulaire inconnu.';
+            require_once __DIR__ . '/Views/errors/404.php';
             break;
     }
 
 } else {
     // Traitement GET
-    $page = $_GET['page'] ?? basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-    $page = $page === '' ? 'home' : $page;
 
     switch ($page) {
         case 'home':
@@ -74,12 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             require_once __DIR__ . '/Views/sign_up.php';
             break;
 
-        case 'contact':
-            require_once __DIR__ . '/Views/contact.php';
-            break;
-
         case 'recipes':
-            $RecipeController->showRecipes();
+            $recipeController->showRecipes();
             break;
 
         case 'recipes_create':
@@ -87,17 +95,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
 
         case 'user_recipes':
-            $RecipeController->showUserRecipes();
+            $recipeController->showUserRecipes();
             break;
 
         case 'update_recipe':
             $recipeId = $_GET['id'] ?? null;
             if ($recipeId) {
-                $RecipeController->showUpdateRecipeForm($recipeId);
+                $recipeController->showUpdateRecipeForm($recipeId);
             } else {
                 header('Location: ' . route('user_recipes'));
                 exit();
             }
+            break;
+
+        case 'contact':
+            require_once __DIR__ . '/Views/contact.php';
+            break;
+
+        case 'reset_request':
+            $passwordController->showResetRequestForm();
+            break;
+
+        case 'reset_sent':
+            require_once __DIR__ . '/Views/password/reset_sent.php';
+            break;
+
+        case 'reset':
+            $passwordController->showResetForm();
+            break;
+
+        case 'reset_success':
+            require_once __DIR__ . '/Views/password/reset_success.php';
             break;
 
         default:
